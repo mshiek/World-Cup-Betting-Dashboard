@@ -11,17 +11,17 @@ interface Match {
     name: string;
     icon: string;
   };
-  odds: {
+  spread: {
     home: string;
     away: string;
-    draw: string;
   };
-  projectedTotal: number;
+  projectedScore: {
+    home: number;
+    away: number;
+  };
+  prediction: 'home' | 'away' | 'even';
   stats: {
     botql: string;
-    sharp: string;
-    accu: string;
-    public: string;
   };
 }
 const matches: Match[] = [
@@ -36,17 +36,17 @@ const matches: Match[] = [
     name: 'Argentina',
     icon: '🇦🇷'
   },
-  odds: {
-    home: 'O 2.5',
-    away: 'U 2.5',
-    draw: 'Draw'
+  spread: {
+    home: '-0.5 & -1',
+    away: '+0.5 & +1'
   },
-  projectedTotal: 5,
+  projectedScore: {
+    home: 2,
+    away: 1
+  },
+  prediction: 'home',
   stats: {
-    botql: '9.9%',
-    sharp: 'U 2.5',
-    accu: 'O 2.5',
-    public: 'O 2.5'
+    botql: '9.9%'
   }
 },
 {
@@ -60,17 +60,17 @@ const matches: Match[] = [
     name: 'Netherlands',
     icon: '🇳🇱'
   },
-  odds: {
-    home: 'O 2.5',
-    away: 'U 2.5',
-    draw: 'Draw'
+  spread: {
+    home: '-0.5',
+    away: '+0.5'
   },
-  projectedTotal: 2,
+  projectedScore: {
+    home: 1,
+    away: 0
+  },
+  prediction: 'home',
   stats: {
-    botql: '7.8%',
-    sharp: 'U 2.5',
-    accu: 'O 2.5',
-    public: 'O 2.5'
+    botql: '7.8%'
   }
 },
 {
@@ -84,17 +84,17 @@ const matches: Match[] = [
     name: 'Spain',
     icon: '🇪🇸'
   },
-  odds: {
-    home: 'O 2.5',
-    away: 'U 2.5',
-    draw: 'Draw'
+  spread: {
+    home: '+0.5',
+    away: '-0.5'
   },
-  projectedTotal: 4,
+  projectedScore: {
+    home: 1,
+    away: 2
+  },
+  prediction: 'away',
   stats: {
-    botql: '5.5%',
-    sharp: 'U 2.5',
-    accu: 'O 2.5',
-    public: 'O 2.5'
+    botql: '5.5%'
   }
 },
 {
@@ -108,17 +108,17 @@ const matches: Match[] = [
     name: 'Portugal',
     icon: '🇵🇹'
   },
-  odds: {
-    home: 'O 2.5',
-    away: 'U 2.5',
-    draw: 'Draw'
+  spread: {
+    home: 'Even',
+    away: 'Even'
   },
-  projectedTotal: 4,
+  projectedScore: {
+    home: 1,
+    away: 1
+  },
+  prediction: 'even',
   stats: {
-    botql: '3.2%',
-    sharp: 'U 2.5',
-    accu: 'O 2.5',
-    public: 'O 2.5'
+    botql: '3.2%'
   }
 },
 {
@@ -132,17 +132,17 @@ const matches: Match[] = [
     name: 'Italy',
     icon: '🇮🇹'
   },
-  odds: {
-    home: 'O 4.0',
-    away: 'U 4.0',
-    draw: 'Draw'
+  spread: {
+    home: '-0.5',
+    away: '+0.5'
   },
-  projectedTotal: 3,
+  projectedScore: {
+    home: 2,
+    away: 1
+  },
+  prediction: 'home',
   stats: {
-    botql: '1.5%',
-    sharp: 'O 4.0',
-    accu: 'No Pick',
-    public: 'No Pick'
+    botql: '1.5%'
   }
 },
 {
@@ -156,34 +156,23 @@ const matches: Match[] = [
     name: 'Croatia',
     icon: '🇭🇷'
   },
-  odds: {
-    home: 'O 4.1',
-    away: 'U 4.1',
-    draw: 'Draw'
+  spread: {
+    home: 'Even',
+    away: 'Even'
   },
-  projectedTotal: 1,
+  projectedScore: {
+    home: 0,
+    away: 0
+  },
+  prediction: 'even',
   stats: {
-    botql: '0.1%',
-    sharp: 'O 4.1',
-    accu: 'U 4.1',
-    public: 'U 4.1'
+    botql: '0.1%'
   }
 }];
 
-export function WorldCupTable() {
+export function SpreadTable() {
   return (
     <div className="w-full">
-      {/* Description */}
-      <div className="bg-white rounded-t-lg px-8 py-6 border-b border-gray-100">
-        <p className="text-xs text-gray-500 leading-relaxed">
-          Daily betting projections for the 2026 FIFA World Cup. Our model
-          simulates each matchup to project winners, moneyline odds, point
-          spreads, and over/under totals. Use these projections alongside your
-          own research to find value in today's games.
-        </p>
-      </div>
-
-      {/* Table */}
       <div className="bg-white rounded-lg shadow-sm overflow-hidden mb-12">
         <div className="overflow-x-auto">
           <table className="w-full md:min-w-[1000px] border-collapse">
@@ -192,13 +181,13 @@ export function WorldCupTable() {
                 <th className="p-3 md:p-4 font-medium w-auto md:w-[28%] sticky left-0 bg-gray-50 z-10">
                   Matchup
                 </th>
-                <th className="p-3 md:p-4 font-medium w-auto md:w-[15%] text-center whitespace-nowrap">
-                  Odds
+                <th className="p-3 md:p-4 font-medium w-auto md:w-[20%] text-center whitespace-nowrap">
+                  Spread
                 </th>
                 <th className="p-3 md:p-4 font-medium w-auto md:w-[14%] text-center">
                   <div className="flex flex-col items-center leading-tight">
                     <span>Projected</span>
-                    <span className="whitespace-nowrap">Total Goals</span>
+                    <span className="whitespace-nowrap">Score</span>
                   </div>
                 </th>
                 <th className="p-3 md:p-4 font-medium w-auto md:w-[14%] text-center">
@@ -237,7 +226,9 @@ export function WorldCupTable() {
 
                               {match.homeTeam.icon}
                             </span>
-                            <span className="text-xs md:text-sm font-bold text-gray-900">
+                            <span
+                            className={`text-xs md:text-sm ${match.prediction === 'home' || match.prediction === 'even' ? 'font-bold text-gray-900' : 'font-medium text-gray-700'}`}>
+
                               {match.homeTeam.name}
                             </span>
                           </div>
@@ -255,7 +246,9 @@ export function WorldCupTable() {
 
                               {match.awayTeam.icon}
                             </span>
-                            <span className="text-xs md:text-sm font-medium text-gray-700">
+                            <span
+                            className={`text-xs md:text-sm ${match.prediction === 'away' || match.prediction === 'even' ? 'font-bold text-gray-900' : 'font-medium text-gray-700'}`}>
+
                               {match.awayTeam.name}
                             </span>
                           </div>
@@ -271,23 +264,32 @@ export function WorldCupTable() {
                     </div>
                   </td>
 
-                  {/* Odds Column */}
+                  {/* Spread Column */}
                   <td className="p-3 md:p-4 align-middle text-center border-r border-gray-100">
                     <div className="flex flex-col items-center space-y-1.5 md:space-y-3">
-                      <div className="text-[11px] md:text-sm font-medium text-gray-900">
-                        {match.odds.home}
+                      <div
+                      className={`text-[11px] md:text-sm whitespace-nowrap ${match.prediction === 'home' || match.prediction === 'even' ? 'font-bold text-gray-900' : 'font-medium text-gray-500'}`}>
+
+                        {match.spread.home}
                       </div>
-                      <div className="text-[11px] md:text-sm font-bold text-gray-900">
-                        {match.odds.away}
+                      <div
+                      className={`text-[11px] md:text-sm whitespace-nowrap ${match.prediction === 'away' || match.prediction === 'even' ? 'font-bold text-gray-900' : 'font-medium text-gray-500'}`}>
+
+                        {match.spread.away}
                       </div>
                     </div>
                   </td>
 
-                  {/* Projected Total Goals Column */}
+                  {/* Projected Score Column */}
                   <td className="p-3 md:p-4 align-middle text-center border-r border-gray-100">
-                    <span className="inline-flex items-center justify-center px-2.5 md:px-3 py-1 rounded bg-gray-100 text-xs md:text-sm font-bold text-gray-900">
-                      {match.projectedTotal}
-                    </span>
+                    <div className="flex flex-col items-center space-y-1.5 md:space-y-3">
+                      <span className="inline-flex items-center justify-center w-8 md:w-9 py-0.5 rounded bg-gray-100 text-xs md:text-sm font-bold text-gray-900">
+                        {match.projectedScore.home}
+                      </span>
+                      <span className="inline-flex items-center justify-center w-8 md:w-9 py-0.5 rounded bg-gray-100 text-xs md:text-sm font-bold text-gray-900">
+                        {match.projectedScore.away}
+                      </span>
+                    </div>
                   </td>
 
                   {/* Simulation Value Column */}

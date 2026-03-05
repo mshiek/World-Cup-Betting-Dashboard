@@ -1,18 +1,18 @@
 import React from 'react';
 import { ChevronDown, Monitor } from 'lucide-react';
-export function FilterBar() {
+interface FilterBarProps {
+  betTypeLabel?: string;
+}
+export function FilterBar({ betTypeLabel = 'TOTAL' }: FilterBarProps) {
   const filters = [
   {
-    label: 'MODEL BETS',
-    active: true
+    label: 'MODEL BETS'
   },
   {
-    label: 'TOTAL',
-    active: false
+    label: betTypeLabel
   },
   {
-    label: 'Group Stage',
-    active: false
+    label: 'Group Stage'
   }];
 
   return (
