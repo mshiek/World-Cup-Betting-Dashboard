@@ -220,7 +220,7 @@ export function WorldCupTable() {
               <tr
                 key={match.id}
                 className="hover:bg-gray-50 transition-colors group">
-
+                
                   {/* Matchup Column */}
                   <td className="p-3 md:p-4 align-top border-r border-gray-100 sticky left-0 bg-white z-10 group-hover:bg-gray-50">
                     <div className="flex flex-col space-y-2 md:space-y-4">
@@ -234,7 +234,7 @@ export function WorldCupTable() {
                             className="text-sm md:text-lg"
                             role="img"
                             aria-label={match.homeTeam.name}>
-
+                            
                               {match.homeTeam.icon}
                             </span>
                             <span className="text-xs md:text-sm font-bold text-gray-900">
@@ -244,7 +244,7 @@ export function WorldCupTable() {
                           <Play
                           size={12}
                           className="text-green-600 fill-current opacity-0 group-hover:opacity-100 transition-opacity cursor-pointer hidden md:block" />
-
+                        
                         </div>
                         <div className="flex items-center justify-between">
                           <div className="flex items-center space-x-1.5 md:space-x-2">
@@ -252,7 +252,7 @@ export function WorldCupTable() {
                             className="text-sm md:text-lg"
                             role="img"
                             aria-label={match.awayTeam.name}>
-
+                            
                               {match.awayTeam.icon}
                             </span>
                             <span className="text-xs md:text-sm font-medium text-gray-700">
@@ -262,7 +262,7 @@ export function WorldCupTable() {
                           <ChevronRight
                           size={14}
                           className="text-blue-500 opacity-0 group-hover:opacity-100 transition-opacity hidden md:block" />
-
+                        
                         </div>
                       </div>
                       <button className="text-[9px] md:text-[10px] text-blue-600 font-medium hover:underline text-left">
@@ -302,7 +302,7 @@ export function WorldCupTable() {
                     <a
                     href={`/game-predictions/${match.homeTeam.name.toLowerCase()}-${match.awayTeam.name.toLowerCase()}-${match.date.includes('12/13') ? '12-13-2025' : '12-14-2025'}`}
                     className="text-[10px] md:text-xs font-bold text-blue-600 hover:underline whitespace-nowrap">
-
+                    
                       See Full Prediction
                     </a>
                   </td>

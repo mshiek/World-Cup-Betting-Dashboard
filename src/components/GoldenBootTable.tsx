@@ -6,8 +6,8 @@ interface Player {
   team: string;
   image: string;
   odds: string;
-  goalProjection: string;
-  goals: number;
+  winProjection: string;
+  projectedGoals: number;
   totalShots: number;
   shotsOnGoal: number;
 }
@@ -17,9 +17,9 @@ const players: Player[] = [
   name: 'Kylian Mbappé',
   team: 'France',
   image: 'https://randomuser.me/api/portraits/men/1.jpg',
-  odds: '+300',
-  goalProjection: '42.7%',
-  goals: 0.54,
+  odds: '+350',
+  winProjection: '18.5%',
+  projectedGoals: 5.2,
   totalShots: 3.3,
   shotsOnGoal: 1.92
 },
@@ -28,9 +28,9 @@ const players: Player[] = [
   name: 'Lionel Messi',
   team: 'Argentina',
   image: 'https://randomuser.me/api/portraits/men/2.jpg',
-  odds: '+450',
-  goalProjection: '38.2%',
-  goals: 0.49,
+  odds: '+500',
+  winProjection: '14.8%',
+  projectedGoals: 4.6,
   totalShots: 3.0,
   shotsOnGoal: 1.76
 },
@@ -39,9 +39,9 @@ const players: Player[] = [
   name: 'Julián Álvarez',
   team: 'Argentina',
   image: 'https://randomuser.me/api/portraits/men/3.jpg',
-  odds: '+465',
-  goalProjection: '33.5%',
-  goals: 0.44,
+  odds: '+600',
+  winProjection: '11.2%',
+  projectedGoals: 4.1,
   totalShots: 2.7,
   shotsOnGoal: 1.58
 },
@@ -50,9 +50,9 @@ const players: Player[] = [
   name: 'Olivier Giroud',
   team: 'France',
   image: 'https://randomuser.me/api/portraits/men/4.jpg',
-  odds: '+500',
-  goalProjection: '29.1%',
-  goals: 0.39,
+  odds: '+700',
+  winProjection: '9.5%',
+  projectedGoals: 3.7,
   totalShots: 2.4,
   shotsOnGoal: 1.41
 },
@@ -61,9 +61,9 @@ const players: Player[] = [
   name: 'Cody Gakpo',
   team: 'Netherlands',
   image: 'https://randomuser.me/api/portraits/men/5.jpg',
-  odds: '+550',
-  goalProjection: '24.8%',
-  goals: 0.34,
+  odds: '+800',
+  winProjection: '7.8%',
+  projectedGoals: 3.2,
   totalShots: 2.1,
   shotsOnGoal: 1.22
 },
@@ -72,9 +72,9 @@ const players: Player[] = [
   name: 'Marcus Rashford',
   team: 'England',
   image: 'https://randomuser.me/api/portraits/men/6.jpg',
-  odds: '+600',
-  goalProjection: '20.3%',
-  goals: 0.29,
+  odds: '+900',
+  winProjection: '6.4%',
+  projectedGoals: 2.8,
   totalShots: 1.8,
   shotsOnGoal: 1.05
 },
@@ -83,9 +83,9 @@ const players: Player[] = [
   name: 'Richarlison',
   team: 'Brazil',
   image: 'https://randomuser.me/api/portraits/men/7.jpg',
-  odds: '+650',
-  goalProjection: '16.7%',
-  goals: 0.24,
+  odds: '+1000',
+  winProjection: '5.1%',
+  projectedGoals: 2.4,
   totalShots: 1.5,
   shotsOnGoal: 0.88
 },
@@ -94,9 +94,9 @@ const players: Player[] = [
   name: 'Bukayo Saka',
   team: 'England',
   image: 'https://randomuser.me/api/portraits/men/8.jpg',
-  odds: '+680',
-  goalProjection: '13.2%',
-  goals: 0.19,
+  odds: '+1200',
+  winProjection: '4.2%',
+  projectedGoals: 2.1,
   totalShots: 1.2,
   shotsOnGoal: 0.71
 },
@@ -105,9 +105,9 @@ const players: Player[] = [
   name: 'Álvaro Morata',
   team: 'Spain',
   image: 'https://randomuser.me/api/portraits/men/9.jpg',
-  odds: '+700',
-  goalProjection: '9.8%',
-  goals: 0.15,
+  odds: '+1400',
+  winProjection: '3.5%',
+  projectedGoals: 1.8,
   totalShots: 1.0,
   shotsOnGoal: 0.54
 },
@@ -116,9 +116,9 @@ const players: Player[] = [
   name: 'Gonçalo Ramos',
   team: 'Portugal',
   image: 'https://randomuser.me/api/portraits/men/10.jpg',
-  odds: '+750',
-  goalProjection: '7.4%',
-  goals: 0.12,
+  odds: '+1600',
+  winProjection: '2.9%',
+  projectedGoals: 1.5,
   totalShots: 0.8,
   shotsOnGoal: 0.38
 },
@@ -127,9 +127,9 @@ const players: Player[] = [
   name: 'Enner Valencia',
   team: 'Ecuador',
   image: 'https://randomuser.me/api/portraits/men/11.jpg',
-  odds: '+775',
-  goalProjection: '6.1%',
-  goals: 0.09,
+  odds: '+2000',
+  winProjection: '2.1%',
+  projectedGoals: 1.2,
   totalShots: 0.7,
   shotsOnGoal: 0.25
 },
@@ -138,9 +138,9 @@ const players: Player[] = [
   name: 'Romelu Lukaku',
   team: 'Belgium',
   image: 'https://randomuser.me/api/portraits/men/12.jpg',
-  odds: '+800',
-  goalProjection: '5.0%',
-  goals: 0.07,
+  odds: '+2200',
+  winProjection: '1.7%',
+  projectedGoals: 1.0,
   totalShots: 0.6,
   shotsOnGoal: 0.16
 }];
@@ -152,7 +152,7 @@ function slugify(name: string) {
   replace(/[\u0300-\u036f]/g, '').
   replace(/\s+/g, '-');
 }
-export function PlayerSection() {
+export function GoldenBootTable() {
   return (
     <div className="w-full">
       {/* Header Section */}
@@ -165,39 +165,20 @@ export function PlayerSection() {
         
         <div className="relative z-20 h-full flex flex-col justify-center px-8">
           <h2 className="text-3xl font-bold text-white mb-2">
-            World Cup - Top Goalscorers
+            World Cup - Golden Boot Winner
           </h2>
         </div>
-      </div>
-
-      {/* Controls Bar */}
-      <div className="bg-white border-b border-gray-200 px-8 py-4 flex items-center space-x-3 overflow-x-auto">
-        <button className="bg-[#1e3a8a] text-white px-4 py-1.5 rounded text-xs font-bold uppercase tracking-wide whitespace-nowrap">
-          All Games
-        </button>
-        <button className="bg-white text-gray-600 border border-gray-200 px-4 py-1.5 rounded text-xs font-bold uppercase tracking-wide hover:bg-gray-50 whitespace-nowrap">
-          Mexico vs. South Africa
-        </button>
-        <button className="bg-white text-gray-600 border border-gray-200 px-4 py-1.5 rounded text-xs font-bold uppercase tracking-wide hover:bg-gray-50 whitespace-nowrap">
-          USA vs. Paraguay
-        </button>
-        <button className="bg-white text-gray-600 border border-gray-200 px-4 py-1.5 rounded text-xs font-bold uppercase tracking-wide hover:bg-gray-50 whitespace-nowrap">
-          Qatar vs. Switzerland
-        </button>
-        <button className="bg-white text-gray-600 border border-gray-200 px-4 py-1.5 rounded text-xs font-bold uppercase tracking-wide hover:bg-gray-50 whitespace-nowrap">
-          Brazil vs. Morocco
-        </button>
-        <button className="bg-white text-gray-600 border border-gray-200 px-4 py-1.5 rounded text-xs font-bold uppercase tracking-wide hover:bg-gray-50 whitespace-nowrap">
-          Haiti vs. Scotland
-        </button>
       </div>
 
       {/* Explanation Text */}
       <div className="bg-white px-8 py-6 border-b border-gray-100">
         <p className="text-xs text-gray-500 leading-relaxed">
-          Top Goalscorer betting projections show each player's projected odds
-          to score at least 1 goal in their upcoming match, based on a
-          combination of their historical stats, matchup, news and injuries.
+          Golden Boot Winner projections for the 2026 FIFA World Cup. The Golden
+          Boot is awarded to the player who scores the most goals across the
+          entire tournament. Our model simulates the full tournament to project
+          each player's probability of finishing as the top scorer, based on
+          historical goal-scoring rates, team strength, expected minutes, and
+          path through the knockout rounds.
         </p>
       </div>
 
@@ -220,30 +201,21 @@ export function PlayerSection() {
                 <th className="px-3 md:px-4 py-3 text-center w-auto md:w-[14%]">
                   <div className="flex flex-col items-center leading-tight">
                     <span className="flex items-center gap-1 whitespace-nowrap">
-                      Goal
+                      Win
                       <ChevronDown size={8} />
                     </span>
                     <span>Projection</span>
                   </div>
                 </th>
-                <th className="px-3 md:px-4 py-3 text-center w-auto md:w-[10%]">
-                  Goals
-                </th>
                 <th className="px-3 md:px-4 py-3 text-center w-auto md:w-[12%]">
                   <div className="flex flex-col items-center leading-tight whitespace-nowrap">
-                    <span>Total</span>
-                    <span>Shots</span>
-                  </div>
-                </th>
-                <th className="px-3 md:px-4 py-3 text-center w-auto md:w-[12%]">
-                  <div className="flex flex-col items-center leading-tight whitespace-nowrap">
-                    <span>Shots on</span>
-                    <span>Goal</span>
+                    <span>Projected</span>
+                    <span>Goals</span>
                   </div>
                 </th>
                 <th className="px-3 md:px-4 py-3 text-center w-auto md:w-[16%]">
                   <div className="flex flex-col items-center leading-tight whitespace-nowrap">
-                    <span>See Full</span>
+                    <span>See Full Game</span>
                     <span>Prediction</span>
                   </div>
                 </th>
@@ -281,25 +253,13 @@ export function PlayerSection() {
 
                   <td className="px-3 md:px-4 py-3 md:py-4 text-center">
                     <span className="inline-flex items-center justify-center px-2.5 md:px-3 py-1 rounded bg-green-600 text-[10px] md:text-xs font-bold text-white whitespace-nowrap">
-                      {player.goalProjection}
+                      {player.winProjection}
                     </span>
                   </td>
 
                   <td className="px-3 md:px-4 py-3 md:py-4 text-center">
                     <span className="text-[10px] md:text-xs font-bold text-gray-900">
-                      {player.goals.toFixed(2)}
-                    </span>
-                  </td>
-
-                  <td className="px-3 md:px-4 py-3 md:py-4 text-center">
-                    <span className="text-[10px] md:text-xs font-bold text-gray-900">
-                      {player.totalShots.toFixed(1)}
-                    </span>
-                  </td>
-
-                  <td className="px-3 md:px-4 py-3 md:py-4 text-center">
-                    <span className="text-[10px] md:text-xs font-bold text-gray-900">
-                      {player.shotsOnGoal.toFixed(2)}
+                      {player.projectedGoals.toFixed(1)}
                     </span>
                   </td>
 
@@ -308,7 +268,7 @@ export function PlayerSection() {
                     href={`/player-predictions/${slugify(player.name)}`}
                     className="text-[10px] md:text-xs font-bold text-blue-600 hover:underline whitespace-nowrap">
                     
-                      See Full Prediction
+                      See Full Game Prediction
                     </a>
                   </td>
                 </tr>

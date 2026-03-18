@@ -524,7 +524,7 @@ export function GroupAdvanceTable() {
           src="https://images.unsplash.com/photo-1486286701208-1d58e9338013?ixlib=rb-4.0.3&auto=format&fit=crop&w=2000&q=80"
           alt="World Cup Trophy"
           className="absolute right-0 top-0 h-full w-2/3 object-cover opacity-60" />
-
+        
         <div className="relative z-20 h-full flex flex-col justify-center px-8">
           <h2 className="text-3xl font-bold text-white mb-2">
             World Cup - Group - Advance
@@ -633,14 +633,14 @@ export function GroupAdvanceTable() {
                   <tr
                     key={entry.id}
                     className="hover:bg-gray-50 transition-colors">
-
+                    
                         <td className="px-3 md:px-8 py-3 md:py-4 sticky left-0 bg-white z-10">
                           <div className="flex items-center space-x-2 md:space-x-4">
                             <span
                           className="text-lg md:text-xl flex-shrink-0"
                           role="img"
                           aria-label={entry.team}>
-
+                          
                               {entry.icon}
                             </span>
                             <div className="flex flex-col min-w-0">
@@ -672,7 +672,7 @@ export function GroupAdvanceTable() {
                         <td className="px-3 md:px-4 py-3 md:py-4 text-center">
                           <span
                         className={`inline-flex items-center justify-center px-2.5 md:px-3 py-1 rounded text-[10px] md:text-xs font-bold text-white whitespace-nowrap ${entry.simValue.startsWith('-') ? 'bg-red-500' : 'bg-green-600'}`}>
-
+                        
                             {entry.simValue}
                           </span>
                         </td>
@@ -681,7 +681,7 @@ export function GroupAdvanceTable() {
                           <a
                         href={`/futures-predictions/${slugify(entry.team)}`}
                         className="text-[10px] md:text-xs font-bold text-blue-600 hover:underline whitespace-nowrap">
-
+                        
                             See Full Prediction
                           </a>
                         </td>

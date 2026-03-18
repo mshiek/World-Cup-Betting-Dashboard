@@ -11,7 +11,7 @@ interface Match {
     name: string;
     icon: string;
   };
-  spread: {
+  odds: {
     home: string;
     away: string;
   };
@@ -19,7 +19,7 @@ interface Match {
     home: number;
     away: number;
   };
-  prediction: 'home' | 'away' | 'even';
+  prediction: 'home' | 'away';
   stats: {
     botql: string;
   };
@@ -36,9 +36,9 @@ const matches: Match[] = [
     name: 'Argentina',
     icon: '🇦🇷'
   },
-  spread: {
-    home: '-0.5 & -1',
-    away: '+0.5 & +1'
+  odds: {
+    home: '-120',
+    away: '+140'
   },
   projectedScore: {
     home: 2,
@@ -60,9 +60,9 @@ const matches: Match[] = [
     name: 'Netherlands',
     icon: '🇳🇱'
   },
-  spread: {
-    home: '-0.5',
-    away: '+0.5'
+  odds: {
+    home: '-150',
+    away: '+130'
   },
   projectedScore: {
     home: 1,
@@ -84,9 +84,9 @@ const matches: Match[] = [
     name: 'Spain',
     icon: '🇪🇸'
   },
-  spread: {
-    home: '+0.5',
-    away: '-0.5'
+  odds: {
+    home: '+140',
+    away: '-110'
   },
   projectedScore: {
     home: 1,
@@ -108,15 +108,15 @@ const matches: Match[] = [
     name: 'Portugal',
     icon: '🇵🇹'
   },
-  spread: {
-    home: 'Even',
-    away: 'Even'
+  odds: {
+    home: '+110',
+    away: '+120'
   },
   projectedScore: {
-    home: 1,
+    home: 2,
     away: 1
   },
-  prediction: 'even',
+  prediction: 'home',
   stats: {
     botql: '3.2%'
   }
@@ -132,9 +132,9 @@ const matches: Match[] = [
     name: 'Italy',
     icon: '🇮🇹'
   },
-  spread: {
-    home: '-0.5',
-    away: '+0.5'
+  odds: {
+    home: '-110',
+    away: '+130'
   },
   projectedScore: {
     home: 2,
@@ -156,21 +156,21 @@ const matches: Match[] = [
     name: 'Croatia',
     icon: '🇭🇷'
   },
-  spread: {
-    home: 'Even',
-    away: 'Even'
+  odds: {
+    home: '+130',
+    away: '+110'
   },
   projectedScore: {
     home: 0,
-    away: 0
+    away: 1
   },
-  prediction: 'even',
+  prediction: 'away',
   stats: {
     botql: '0.1%'
   }
 }];
 
-export function SpreadTable() {
+export function ToWinTable() {
   return (
     <div className="w-full">
       <div className="bg-white rounded-lg shadow-sm overflow-hidden mb-12">
@@ -181,8 +181,8 @@ export function SpreadTable() {
                 <th className="p-3 md:p-4 font-medium w-auto md:w-[28%] sticky left-0 bg-gray-50 z-10">
                   Matchup
                 </th>
-                <th className="p-3 md:p-4 font-medium w-auto md:w-[20%] text-center whitespace-nowrap">
-                  Spread
+                <th className="p-3 md:p-4 font-medium w-auto md:w-[15%] text-center whitespace-nowrap">
+                  Odds
                 </th>
                 <th className="p-3 md:p-4 font-medium w-auto md:w-[14%] text-center">
                   <div className="flex flex-col items-center leading-tight">
@@ -227,13 +227,12 @@ export function SpreadTable() {
                               {match.homeTeam.icon}
                             </span>
                             <span
-                            className={`text-xs md:text-sm ${match.prediction === 'home' || match.prediction === 'even' ? 'font-bold text-gray-900' : 'font-medium text-gray-700'}`}>
+                            className={`text-xs md:text-sm ${match.prediction === 'home' ? 'font-bold text-gray-900' : 'font-medium text-gray-700'}`}>
                             
                               {match.homeTeam.name}
                             </span>
                           </div>
-                          {(match.prediction === 'home' ||
-                        match.prediction === 'even') &&
+                          {match.prediction === 'home' &&
                         <Play
                           size={12}
                           className="text-green-600 fill-current" />
@@ -250,13 +249,12 @@ export function SpreadTable() {
                               {match.awayTeam.icon}
                             </span>
                             <span
-                            className={`text-xs md:text-sm ${match.prediction === 'away' || match.prediction === 'even' ? 'font-bold text-gray-900' : 'font-medium text-gray-700'}`}>
+                            className={`text-xs md:text-sm ${match.prediction === 'away' ? 'font-bold text-gray-900' : 'font-medium text-gray-700'}`}>
                             
                               {match.awayTeam.name}
                             </span>
                           </div>
-                          {(match.prediction === 'away' ||
-                        match.prediction === 'even') &&
+                          {match.prediction === 'away' &&
                         <Play
                           size={12}
                           className="text-green-600 fill-current" />
@@ -270,18 +268,18 @@ export function SpreadTable() {
                     </div>
                   </td>
 
-                  {/* Spread Column */}
+                  {/* Odds Column */}
                   <td className="p-3 md:p-4 align-top text-center border-r border-gray-100">
                     <div className="flex flex-col items-center space-y-1.5 md:space-y-3 mt-7 md:mt-10">
                       <div
-                      className={`text-[11px] md:text-sm h-5 md:h-6 flex items-center justify-center whitespace-nowrap ${match.prediction === 'home' || match.prediction === 'even' ? 'font-bold text-gray-900' : 'font-medium text-gray-500'}`}>
+                      className={`text-[11px] md:text-sm h-5 md:h-6 flex items-center justify-center ${match.prediction === 'home' ? 'font-bold text-gray-900' : 'font-medium text-gray-500'}`}>
                       
-                        {match.spread.home}
+                        {match.odds.home}
                       </div>
                       <div
-                      className={`text-[11px] md:text-sm h-5 md:h-6 flex items-center justify-center whitespace-nowrap ${match.prediction === 'away' || match.prediction === 'even' ? 'font-bold text-gray-900' : 'font-medium text-gray-500'}`}>
+                      className={`text-[11px] md:text-sm h-5 md:h-6 flex items-center justify-center ${match.prediction === 'away' ? 'font-bold text-gray-900' : 'font-medium text-gray-500'}`}>
                       
-                        {match.spread.away}
+                        {match.odds.away}
                       </div>
                     </div>
                   </td>

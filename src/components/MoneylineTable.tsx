@@ -216,7 +216,7 @@ export function MoneylineTable() {
               <tr
                 key={match.id}
                 className="hover:bg-gray-50 transition-colors group">
-
+                
                   {/* Matchup Column */}
                   <td className="p-3 md:p-4 align-top border-r border-gray-100 sticky left-0 bg-white z-10 group-hover:bg-gray-50">
                     <div className="flex flex-col space-y-2 md:space-y-4">
@@ -230,19 +230,21 @@ export function MoneylineTable() {
                             className="text-sm md:text-lg w-5 md:w-6 text-center"
                             role="img"
                             aria-label={match.homeTeam.name}>
-
+                            
                               {match.homeTeam.icon}
                             </span>
                             <span
                             className={`text-xs md:text-sm ${match.prediction === 'home' ? 'font-bold text-gray-900' : 'font-medium text-gray-700'}`}>
-
+                            
                               {match.homeTeam.name}
                             </span>
                           </div>
-                          <Play
+                          {match.prediction === 'home' &&
+                        <Play
                           size={12}
-                          className="text-green-600 fill-current opacity-0 group-hover:opacity-100 transition-opacity cursor-pointer hidden md:block" />
+                          className="text-green-600 fill-current" />
 
+                        }
                         </div>
                         <div className="flex items-center justify-between">
                           <div className="flex items-center space-x-1.5 md:space-x-2">
@@ -250,29 +252,37 @@ export function MoneylineTable() {
                             className="text-sm md:text-lg w-5 md:w-6 text-center"
                             role="img"
                             aria-label={match.awayTeam.name}>
-
+                            
                               {match.awayTeam.icon}
                             </span>
                             <span
                             className={`text-xs md:text-sm ${match.prediction === 'away' ? 'font-bold text-gray-900' : 'font-medium text-gray-700'}`}>
-
+                            
                               {match.awayTeam.name}
                             </span>
                           </div>
+                          {match.prediction === 'away' &&
+                        <Play
+                          size={12}
+                          className="text-green-600 fill-current" />
+
+                        }
                         </div>
                         <div className="flex items-center justify-between">
                           <div className="flex items-center space-x-1.5 md:space-x-2">
                             <span className="w-5 md:w-6"></span>
                             <span
                             className={`text-xs md:text-sm ${match.prediction === 'draw' ? 'font-bold text-gray-900' : 'font-medium text-gray-700'}`}>
-
+                            
                               Draw
                             </span>
                           </div>
-                          <ChevronRight
-                          size={14}
-                          className="text-blue-500 opacity-0 group-hover:opacity-100 transition-opacity hidden md:block" />
+                          {match.prediction === 'draw' &&
+                        <Play
+                          size={12}
+                          className="text-green-600 fill-current" />
 
+                        }
                         </div>
                       </div>
                       <button className="text-[9px] md:text-[10px] text-blue-600 font-medium hover:underline text-left pt-1">
@@ -282,40 +292,40 @@ export function MoneylineTable() {
                   </td>
 
                   {/* Odds Column */}
-                  <td className="p-3 md:p-4 align-middle text-center border-r border-gray-100">
-                    <div className="flex flex-col items-center justify-center h-full space-y-1.5 md:space-y-2 mt-6 md:mt-8">
+                  <td className="p-3 md:p-4 align-top text-center border-r border-gray-100">
+                    <div className="flex flex-col items-center space-y-1.5 md:space-y-2 mt-7 md:mt-10">
                       <div
-                      className={`text-[11px] md:text-sm h-5 md:h-6 flex items-center ${match.prediction === 'home' ? 'font-bold text-gray-900' : 'font-medium text-gray-500'}`}>
-
+                      className={`text-[11px] md:text-sm h-5 md:h-6 flex items-center justify-center ${match.prediction === 'home' ? 'font-bold text-gray-900' : 'font-medium text-gray-500'}`}>
+                      
                         {match.odds.home}
                       </div>
                       <div
-                      className={`text-[11px] md:text-sm h-5 md:h-6 flex items-center ${match.prediction === 'away' ? 'font-bold text-gray-900' : 'font-medium text-gray-500'}`}>
-
+                      className={`text-[11px] md:text-sm h-5 md:h-6 flex items-center justify-center ${match.prediction === 'away' ? 'font-bold text-gray-900' : 'font-medium text-gray-500'}`}>
+                      
                         {match.odds.away}
                       </div>
                       <div
-                      className={`text-[11px] md:text-sm h-5 md:h-6 flex items-center ${match.prediction === 'draw' ? 'font-bold text-gray-900' : 'font-medium text-gray-500'}`}>
-
+                      className={`text-[11px] md:text-sm h-5 md:h-6 flex items-center justify-center ${match.prediction === 'draw' ? 'font-bold text-gray-900' : 'font-medium text-gray-500'}`}>
+                      
                         {match.odds.draw}
                       </div>
                     </div>
                   </td>
 
                   {/* Projected Score Column */}
-                  <td className="p-3 md:p-4 align-middle text-center border-r border-gray-100">
-                    <div className="flex flex-col items-center justify-center h-full space-y-1.5 md:space-y-2 mt-6 md:mt-8">
-                      <div className="h-5 md:h-6 flex items-center">
+                  <td className="p-3 md:p-4 align-top text-center border-r border-gray-100">
+                    <div className="flex flex-col items-center space-y-1.5 md:space-y-2 mt-7 md:mt-10">
+                      <div className="h-5 md:h-6 flex items-center justify-center">
                         <span className="inline-flex items-center justify-center w-8 md:w-9 py-0.5 rounded bg-gray-100 text-xs md:text-sm font-bold text-gray-900">
                           {match.projectedScore.home}
                         </span>
                       </div>
-                      <div className="h-5 md:h-6 flex items-center">
+                      <div className="h-5 md:h-6 flex items-center justify-center">
                         <span className="inline-flex items-center justify-center w-8 md:w-9 py-0.5 rounded bg-gray-100 text-xs md:text-sm font-bold text-gray-900">
                           {match.projectedScore.away}
                         </span>
                       </div>
-                      <div className="h-5 md:h-6 flex items-center"></div>
+                      <div className="h-5 md:h-6 flex items-center justify-center"></div>
                     </div>
                   </td>
 
@@ -331,7 +341,7 @@ export function MoneylineTable() {
                     <a
                     href={`/game-predictions/${match.homeTeam.name.toLowerCase()}-${match.awayTeam.name.toLowerCase()}-${match.date.includes('12/13') ? '12-13-2025' : '12-14-2025'}`}
                     className="text-[10px] md:text-xs font-bold text-blue-600 hover:underline whitespace-nowrap">
-
+                    
                       See Full Prediction
                     </a>
                   </td>
