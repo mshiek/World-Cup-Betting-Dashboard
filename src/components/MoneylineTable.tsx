@@ -1,5 +1,9 @@
 import React from 'react';
 import { ChevronRight, Play } from 'lucide-react';
+const SPORTSBOOK_LOGOS = ["/image.png", "/image-1.png"];
+
+
+
 interface Match {
   id: string;
   date: string;
@@ -206,13 +210,13 @@ export function MoneylineTable() {
                 <th className="p-3 md:p-4 font-medium w-auto md:w-[18%] text-center">
                   <div className="flex flex-col items-center leading-tight">
                     <span>See Full</span>
-                    <span>Prediction</span>
+                    <span>Analysis</span>
                   </div>
                 </th>
               </tr>
             </thead>
             <tbody className="divide-y divide-gray-200">
-              {matches.map((match) =>
+              {matches.map((match, matchIndex) =>
               <tr
                 key={match.id}
                 className="hover:bg-gray-50 transition-colors group">
@@ -224,7 +228,7 @@ export function MoneylineTable() {
                         {match.date}
                       </div>
                       <div className="space-y-1.5 md:space-y-2">
-                        <div className="flex items-center justify-between">
+                        <div className="flex items-center justify-between h-5 md:h-6">
                           <div className="flex items-center space-x-1.5 md:space-x-2">
                             <span
                             className="text-sm md:text-lg w-5 md:w-6 text-center"
@@ -246,7 +250,7 @@ export function MoneylineTable() {
 
                         }
                         </div>
-                        <div className="flex items-center justify-between">
+                        <div className="flex items-center justify-between h-5 md:h-6">
                           <div className="flex items-center space-x-1.5 md:space-x-2">
                             <span
                             className="text-sm md:text-lg w-5 md:w-6 text-center"
@@ -268,7 +272,7 @@ export function MoneylineTable() {
 
                         }
                         </div>
-                        <div className="flex items-center justify-between">
+                        <div className="flex items-center justify-between h-5 md:h-6">
                           <div className="flex items-center space-x-1.5 md:space-x-2">
                             <span className="w-5 md:w-6"></span>
                             <span
@@ -295,19 +299,76 @@ export function MoneylineTable() {
                   <td className="p-3 md:p-4 align-top text-center border-r border-gray-100">
                     <div className="flex flex-col items-center space-y-1.5 md:space-y-2 mt-7 md:mt-10">
                       <div
-                      className={`text-[11px] md:text-sm h-5 md:h-6 flex items-center justify-center ${match.prediction === 'home' ? 'font-bold text-gray-900' : 'font-medium text-gray-500'}`}>
+                      className={`text-[11px] md:text-sm h-5 md:h-6 flex items-center justify-center gap-1 ${match.prediction === 'home' ? 'font-bold text-gray-900' : 'font-medium text-gray-500'}`}>
                       
-                        {match.odds.home}
+                        {match.prediction === 'home' ?
+                      <img
+                        src={SPORTSBOOK_LOGOS[0]}
+                        alt="Sportsbook"
+                        className="w-4 h-4 md:w-5 md:h-5 rounded object-cover flex-shrink-0" /> :
+
+
+                      <span className="w-4 md:w-5 flex-shrink-0" />
+                      }
+                        <span>{match.odds.home}</span>
+                        {match.prediction === 'home' ?
+                      <a
+                        href="#"
+                        className="ml-0.5 px-1.5 py-0.5 bg-blue-900 text-white text-[7px] md:text-[9px] font-bold rounded hover:bg-blue-800 whitespace-nowrap flex-shrink-0">
+                        
+                            Bet Now
+                          </a> :
+
+                      <span className="ml-0.5 w-[42px] md:w-[50px] flex-shrink-0" />
+                      }
                       </div>
                       <div
-                      className={`text-[11px] md:text-sm h-5 md:h-6 flex items-center justify-center ${match.prediction === 'away' ? 'font-bold text-gray-900' : 'font-medium text-gray-500'}`}>
+                      className={`text-[11px] md:text-sm h-5 md:h-6 flex items-center justify-center gap-1 ${match.prediction === 'away' ? 'font-bold text-gray-900' : 'font-medium text-gray-500'}`}>
                       
-                        {match.odds.away}
+                        {match.prediction === 'away' ?
+                      <img
+                        src={SPORTSBOOK_LOGOS[0]}
+                        alt="Sportsbook"
+                        className="w-4 h-4 md:w-5 md:h-5 rounded object-cover flex-shrink-0" /> :
+
+
+                      <span className="w-4 md:w-5 flex-shrink-0" />
+                      }
+                        <span>{match.odds.away}</span>
+                        {match.prediction === 'away' ?
+                      <a
+                        href="#"
+                        className="ml-0.5 px-1.5 py-0.5 bg-blue-900 text-white text-[7px] md:text-[9px] font-bold rounded hover:bg-blue-800 whitespace-nowrap flex-shrink-0">
+                        
+                            Bet Now
+                          </a> :
+
+                      <span className="ml-0.5 w-[42px] md:w-[50px] flex-shrink-0" />
+                      }
                       </div>
                       <div
-                      className={`text-[11px] md:text-sm h-5 md:h-6 flex items-center justify-center ${match.prediction === 'draw' ? 'font-bold text-gray-900' : 'font-medium text-gray-500'}`}>
+                      className={`text-[11px] md:text-sm h-5 md:h-6 flex items-center justify-center gap-1 ${match.prediction === 'draw' ? 'font-bold text-gray-900' : 'font-medium text-gray-500'}`}>
                       
-                        {match.odds.draw}
+                        {match.prediction === 'draw' ?
+                      <img
+                        src={SPORTSBOOK_LOGOS[0]}
+                        alt="Sportsbook"
+                        className="w-4 h-4 md:w-5 md:h-5 rounded object-cover flex-shrink-0" /> :
+
+
+                      <span className="w-4 md:w-5 flex-shrink-0" />
+                      }
+                        <span>{match.odds.draw}</span>
+                        {match.prediction === 'draw' ?
+                      <a
+                        href="#"
+                        className="ml-0.5 px-1.5 py-0.5 bg-blue-900 text-white text-[7px] md:text-[9px] font-bold rounded hover:bg-blue-800 whitespace-nowrap flex-shrink-0">
+                        
+                            Bet Now
+                          </a> :
+
+                      <span className="ml-0.5 w-[42px] md:w-[50px] flex-shrink-0" />
+                      }
                       </div>
                     </div>
                   </td>
@@ -342,7 +403,7 @@ export function MoneylineTable() {
                     href={`/game-predictions/${match.homeTeam.name.toLowerCase()}-${match.awayTeam.name.toLowerCase()}-${match.date.includes('12/13') ? '12-13-2025' : '12-14-2025'}`}
                     className="text-[10px] md:text-xs font-bold text-blue-600 hover:underline whitespace-nowrap">
                     
-                      See Full Prediction
+                      See Full Analysis
                     </a>
                   </td>
                 </tr>

@@ -1,5 +1,9 @@
 import React from 'react';
 import { ChevronRight, Play } from 'lucide-react';
+const SPORTSBOOK_LOGOS = ["/image.png", "/image-1.png"];
+
+
+
 interface Match {
   id: string;
   date: string;
@@ -199,13 +203,13 @@ export function SpreadTable() {
                 <th className="p-3 md:p-4 font-medium w-auto md:w-[18%] text-center">
                   <div className="flex flex-col items-center leading-tight">
                     <span>See Full</span>
-                    <span>Prediction</span>
+                    <span>Analysis</span>
                   </div>
                 </th>
               </tr>
             </thead>
             <tbody className="divide-y divide-gray-200">
-              {matches.map((match) =>
+              {matches.map((match, matchIndex) =>
               <tr
                 key={match.id}
                 className="hover:bg-gray-50 transition-colors group">
@@ -217,7 +221,7 @@ export function SpreadTable() {
                         {match.date}
                       </div>
                       <div className="space-y-1.5 md:space-y-3">
-                        <div className="flex items-center justify-between">
+                        <div className="flex items-center justify-between h-5 md:h-6">
                           <div className="flex items-center space-x-1.5 md:space-x-2">
                             <span
                             className="text-sm md:text-lg"
@@ -240,7 +244,7 @@ export function SpreadTable() {
 
                         }
                         </div>
-                        <div className="flex items-center justify-between">
+                        <div className="flex items-center justify-between h-5 md:h-6">
                           <div className="flex items-center space-x-1.5 md:space-x-2">
                             <span
                             className="text-sm md:text-lg"
@@ -250,13 +254,12 @@ export function SpreadTable() {
                               {match.awayTeam.icon}
                             </span>
                             <span
-                            className={`text-xs md:text-sm ${match.prediction === 'away' || match.prediction === 'even' ? 'font-bold text-gray-900' : 'font-medium text-gray-700'}`}>
+                            className={`text-xs md:text-sm ${match.prediction === 'away' ? 'font-bold text-gray-900' : 'font-medium text-gray-700'}`}>
                             
                               {match.awayTeam.name}
                             </span>
                           </div>
-                          {(match.prediction === 'away' ||
-                        match.prediction === 'even') &&
+                          {match.prediction === 'away' &&
                         <Play
                           size={12}
                           className="text-green-600 fill-current" />
@@ -274,14 +277,54 @@ export function SpreadTable() {
                   <td className="p-3 md:p-4 align-top text-center border-r border-gray-100">
                     <div className="flex flex-col items-center space-y-1.5 md:space-y-3 mt-7 md:mt-10">
                       <div
-                      className={`text-[11px] md:text-sm h-5 md:h-6 flex items-center justify-center whitespace-nowrap ${match.prediction === 'home' || match.prediction === 'even' ? 'font-bold text-gray-900' : 'font-medium text-gray-500'}`}>
+                      className={`text-[11px] md:text-sm h-5 md:h-6 flex items-center justify-center gap-1 whitespace-nowrap ${match.prediction === 'home' || match.prediction === 'even' ? 'font-bold text-gray-900' : 'font-medium text-gray-500'}`}>
                       
-                        {match.spread.home}
+                        {match.prediction === 'home' ||
+                      match.prediction === 'even' ?
+                      <img
+                        src={SPORTSBOOK_LOGOS[0]}
+                        alt="Sportsbook"
+                        className="w-4 h-4 md:w-5 md:h-5 rounded object-cover flex-shrink-0" /> :
+
+
+                      <span className="w-4 md:w-5 flex-shrink-0" />
+                      }
+                        <span>{match.spread.home}</span>
+                        {match.prediction === 'home' ||
+                      match.prediction === 'even' ?
+                      <a
+                        href="#"
+                        className="ml-0.5 px-1.5 py-0.5 bg-blue-900 text-white text-[7px] md:text-[9px] font-bold rounded hover:bg-blue-800 whitespace-nowrap flex-shrink-0">
+                        
+                            Bet Now
+                          </a> :
+
+                      <span className="ml-0.5 w-[42px] md:w-[50px] flex-shrink-0" />
+                      }
                       </div>
                       <div
-                      className={`text-[11px] md:text-sm h-5 md:h-6 flex items-center justify-center whitespace-nowrap ${match.prediction === 'away' || match.prediction === 'even' ? 'font-bold text-gray-900' : 'font-medium text-gray-500'}`}>
+                      className={`text-[11px] md:text-sm h-5 md:h-6 flex items-center justify-center gap-1 whitespace-nowrap ${match.prediction === 'away' ? 'font-bold text-gray-900' : 'font-medium text-gray-500'}`}>
                       
-                        {match.spread.away}
+                        {match.prediction === 'away' ?
+                      <img
+                        src={SPORTSBOOK_LOGOS[0]}
+                        alt="Sportsbook"
+                        className="w-4 h-4 md:w-5 md:h-5 rounded object-cover flex-shrink-0" /> :
+
+
+                      <span className="w-4 md:w-5 flex-shrink-0" />
+                      }
+                        <span>{match.spread.away}</span>
+                        {match.prediction === 'away' ?
+                      <a
+                        href="#"
+                        className="ml-0.5 px-1.5 py-0.5 bg-blue-900 text-white text-[7px] md:text-[9px] font-bold rounded hover:bg-blue-800 whitespace-nowrap flex-shrink-0">
+                        
+                            Bet Now
+                          </a> :
+
+                      <span className="ml-0.5 w-[42px] md:w-[50px] flex-shrink-0" />
+                      }
                       </div>
                     </div>
                   </td>
@@ -315,7 +358,7 @@ export function SpreadTable() {
                     href={`/game-predictions/${match.homeTeam.name.toLowerCase()}-${match.awayTeam.name.toLowerCase()}-${match.date.includes('12/13') ? '12-13-2025' : '12-14-2025'}`}
                     className="text-[10px] md:text-xs font-bold text-blue-600 hover:underline whitespace-nowrap">
                     
-                      See Full Prediction
+                      See Full Analysis
                     </a>
                   </td>
                 </tr>

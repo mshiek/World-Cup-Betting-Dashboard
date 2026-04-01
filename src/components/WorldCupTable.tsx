@@ -1,5 +1,9 @@
 import React from 'react';
 import { ChevronRight, Play } from 'lucide-react';
+const SPORTSBOOK_LOGOS = ["/image.png", "/image-1.png"];
+
+
+
 interface Match {
   id: string;
   date: string;
@@ -16,6 +20,7 @@ interface Match {
     away: string;
     draw: string;
   };
+  prediction: 'over' | 'under';
   projectedTotal: number;
   stats: {
     botql: string;
@@ -41,6 +46,7 @@ const matches: Match[] = [
     away: 'U 2.5',
     draw: 'Draw'
   },
+  prediction: 'over',
   projectedTotal: 5,
   stats: {
     botql: '9.9%',
@@ -65,6 +71,7 @@ const matches: Match[] = [
     away: 'U 2.5',
     draw: 'Draw'
   },
+  prediction: 'under',
   projectedTotal: 2,
   stats: {
     botql: '7.8%',
@@ -89,6 +96,7 @@ const matches: Match[] = [
     away: 'U 2.5',
     draw: 'Draw'
   },
+  prediction: 'over',
   projectedTotal: 4,
   stats: {
     botql: '5.5%',
@@ -113,6 +121,7 @@ const matches: Match[] = [
     away: 'U 2.5',
     draw: 'Draw'
   },
+  prediction: 'over',
   projectedTotal: 4,
   stats: {
     botql: '3.2%',
@@ -137,6 +146,7 @@ const matches: Match[] = [
     away: 'U 4.0',
     draw: 'Draw'
   },
+  prediction: 'under',
   projectedTotal: 3,
   stats: {
     botql: '1.5%',
@@ -161,6 +171,7 @@ const matches: Match[] = [
     away: 'U 4.1',
     draw: 'Draw'
   },
+  prediction: 'under',
   projectedTotal: 1,
   stats: {
     botql: '0.1%',
@@ -210,13 +221,13 @@ export function WorldCupTable() {
                 <th className="p-3 md:p-4 font-medium w-auto md:w-[18%] text-center">
                   <div className="flex flex-col items-center leading-tight">
                     <span>See Full</span>
-                    <span>Prediction</span>
+                    <span>Analysis</span>
                   </div>
                 </th>
               </tr>
             </thead>
             <tbody className="divide-y divide-gray-200">
-              {matches.map((match) =>
+              {matches.map((match, matchIndex) =>
               <tr
                 key={match.id}
                 className="hover:bg-gray-50 transition-colors group">
@@ -228,7 +239,7 @@ export function WorldCupTable() {
                         {match.date}
                       </div>
                       <div className="space-y-1.5 md:space-y-3">
-                        <div className="flex items-center justify-between">
+                        <div className="flex items-center justify-between h-5 md:h-6">
                           <div className="flex items-center space-x-1.5 md:space-x-2">
                             <span
                             className="text-sm md:text-lg"
@@ -237,16 +248,12 @@ export function WorldCupTable() {
                             
                               {match.homeTeam.icon}
                             </span>
-                            <span className="text-xs md:text-sm font-bold text-gray-900">
+                            <span className="text-xs md:text-sm font-medium text-gray-900">
                               {match.homeTeam.name}
                             </span>
                           </div>
-                          <Play
-                          size={12}
-                          className="text-green-600 fill-current opacity-0 group-hover:opacity-100 transition-opacity cursor-pointer hidden md:block" />
-                        
                         </div>
-                        <div className="flex items-center justify-between">
+                        <div className="flex items-center justify-between h-5 md:h-6">
                           <div className="flex items-center space-x-1.5 md:space-x-2">
                             <span
                             className="text-sm md:text-lg"
@@ -259,9 +266,19 @@ export function WorldCupTable() {
                               {match.awayTeam.name}
                             </span>
                           </div>
-                          <ChevronRight
-                          size={14}
-                          className="text-blue-500 opacity-0 group-hover:opacity-100 transition-opacity hidden md:block" />
+                        </div>
+                        <div className="flex items-center justify-between h-5 md:h-6">
+                          <div className="flex items-center space-x-1.5 md:space-x-2">
+                            <span className="w-4 md:w-6"></span>
+                            <span className="text-xs md:text-sm font-bold text-gray-900">
+                              {match.prediction === 'over' ?
+                            match.odds.home :
+                            match.odds.away}
+                            </span>
+                          </div>
+                          <Play
+                          size={12}
+                          className="text-green-600 fill-current" />
                         
                         </div>
                       </div>
@@ -272,13 +289,55 @@ export function WorldCupTable() {
                   </td>
 
                   {/* Odds Column */}
-                  <td className="p-3 md:p-4 align-middle text-center border-r border-gray-100">
-                    <div className="flex flex-col items-center space-y-1.5 md:space-y-3">
-                      <div className="text-[11px] md:text-sm font-medium text-gray-900">
-                        {match.odds.home}
+                  <td className="p-3 md:p-4 align-top text-center border-r border-gray-100">
+                    <div className="flex flex-col items-center space-y-1.5 md:space-y-3 mt-7 md:mt-10">
+                      <div
+                      className={`text-[11px] md:text-sm h-5 md:h-6 flex items-center justify-center gap-1 ${match.prediction === 'over' ? 'font-bold text-gray-900' : 'font-medium text-gray-500'}`}>
+                      
+                        {match.prediction === 'over' ?
+                      <img
+                        src={SPORTSBOOK_LOGOS[0]}
+                        alt="Sportsbook"
+                        className="w-4 h-4 md:w-5 md:h-5 rounded object-cover flex-shrink-0" /> :
+
+
+                      <span className="w-4 md:w-5 flex-shrink-0" />
+                      }
+                        <span>{match.odds.home}</span>
+                        {match.prediction === 'over' ?
+                      <a
+                        href="#"
+                        className="ml-0.5 px-1.5 py-0.5 bg-blue-900 text-white text-[7px] md:text-[9px] font-bold rounded hover:bg-blue-800 whitespace-nowrap flex-shrink-0">
+                        
+                            Bet Now
+                          </a> :
+
+                      <span className="ml-0.5 w-[42px] md:w-[50px] flex-shrink-0" />
+                      }
                       </div>
-                      <div className="text-[11px] md:text-sm font-bold text-gray-900">
-                        {match.odds.away}
+                      <div
+                      className={`text-[11px] md:text-sm h-5 md:h-6 flex items-center justify-center gap-1 ${match.prediction === 'under' ? 'font-bold text-gray-900' : 'font-medium text-gray-500'}`}>
+                      
+                        {match.prediction === 'under' ?
+                      <img
+                        src={SPORTSBOOK_LOGOS[0]}
+                        alt="Sportsbook"
+                        className="w-4 h-4 md:w-5 md:h-5 rounded object-cover flex-shrink-0" /> :
+
+
+                      <span className="w-4 md:w-5 flex-shrink-0" />
+                      }
+                        <span>{match.odds.away}</span>
+                        {match.prediction === 'under' ?
+                      <a
+                        href="#"
+                        className="ml-0.5 px-1.5 py-0.5 bg-blue-900 text-white text-[7px] md:text-[9px] font-bold rounded hover:bg-blue-800 whitespace-nowrap flex-shrink-0">
+                        
+                            Bet Now
+                          </a> :
+
+                      <span className="ml-0.5 w-[42px] md:w-[50px] flex-shrink-0" />
+                      }
                       </div>
                     </div>
                   </td>
@@ -303,7 +362,7 @@ export function WorldCupTable() {
                     href={`/game-predictions/${match.homeTeam.name.toLowerCase()}-${match.awayTeam.name.toLowerCase()}-${match.date.includes('12/13') ? '12-13-2025' : '12-14-2025'}`}
                     className="text-[10px] md:text-xs font-bold text-blue-600 hover:underline whitespace-nowrap">
                     
-                      See Full Prediction
+                      See Full Analysis
                     </a>
                   </td>
                 </tr>

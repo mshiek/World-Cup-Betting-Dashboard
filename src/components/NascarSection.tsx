@@ -244,7 +244,7 @@ export function PlayerSection() {
                 <th className="px-3 md:px-4 py-3 text-center w-auto md:w-[16%]">
                   <div className="flex flex-col items-center leading-tight whitespace-nowrap">
                     <span>See Full</span>
-                    <span>Prediction</span>
+                    <span>Analysis</span>
                   </div>
                 </th>
               </tr>
@@ -308,7 +308,7 @@ export function PlayerSection() {
                     href={`/player-predictions/${slugify(player.name)}`}
                     className="text-[10px] md:text-xs font-bold text-blue-600 hover:underline whitespace-nowrap">
                     
-                      See Full Prediction
+                      See Full Analysis
                     </a>
                   </td>
                 </tr>

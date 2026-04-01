@@ -215,8 +215,8 @@ export function GoldenBootTable() {
                 </th>
                 <th className="px-3 md:px-4 py-3 text-center w-auto md:w-[16%]">
                   <div className="flex flex-col items-center leading-tight whitespace-nowrap">
-                    <span>See Full Game</span>
-                    <span>Prediction</span>
+                    <span>See Full</span>
+                    <span>Analysis</span>
                   </div>
                 </th>
               </tr>
@@ -268,7 +268,7 @@ export function GoldenBootTable() {
                     href={`/player-predictions/${slugify(player.name)}`}
                     className="text-[10px] md:text-xs font-bold text-blue-600 hover:underline whitespace-nowrap">
                     
-                      See Full Game Prediction
+                      See Full Analysis
                     </a>
                   </td>
                 </tr>
